@@ -9,70 +9,95 @@ import java.text.ParseException;
 public class Servidor {
 
 
-    public static void sumar(int operando1, int operando2) {
+    public static double sumar(double operando1, double operando2) {
 
+        return operando1 + operando2;
 
     }
 
-    public static void introduccionDeDatos() {
-        try {
+    public static double resta(double operando1, double operando2) {
 
+        return operando1 - operando2;
 
-        } catch (Exception e) {
-
-        }
     }
 
-    public static void main(String[] args) {
-        //Establece la ip y el puerto al a través de los cuales se va a producir la comunicación
-        InetSocketAddress direccion = new InetSocketAddress("localhost", 6789);
+    public static double multiplicacion(double operando1, double operando2) {
+
+        return operando1 * operando2;
+
+    }
+
+    public static double division(double operando1, double operando2) {
+
+        return operando1 / operando2;
+
+    }
 
 
-        int operando1, operando2;
+    public static void calculadora() {
+        InetSocketAddress dir = new InetSocketAddress("localhost", 6789);
+
         try {
+            //Instancia del socket
+            ServerSocket serverSocket = new ServerSocket();
+            serverSocket.bind(dir);
+            Socket sock = serverSocket.accept();
 
 
-            //Instancia del objeto socket servidor
-            ServerSocket servidor = new ServerSocket();
-            //Lo asignamos a un puerto de memoria
-            servidor.bind(direccion);
+            //Decalarion del PrintWriter
+            PrintWriter escritor = new PrintWriter(sock.getOutputStream(), true);
+            //Declaracion del bufferedReader
+            BufferedReader lector = new BufferedReader(new InputStreamReader(sock.getInputStream()));
 
-            System.out.println("Esperando conexiones:...");
-            Socket socket = servidor.accept();
-            System.out.println("Cliente conectado");
-            //Instanciamos el Printwriter para la salida de datos
-            /*
+            //variables
+            double operando1;
+            char operacion;
+            double operando2;
+            double resultado = 0;
 
-             */
-            PrintWriter escritor = new PrintWriter(socket.getOutputStream(), true);
-            //Instanciamos el bufferedReader para recibir datos
-            BufferedReader lector = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            //Bucle que representa el funcionamiento del servidor
-            String salir = "salir";
-            System.out.println("Introduce el operando 1");
-            operando1 = Integer.parseInt(lector.readLine());
+            while (true) {
+                operando1 = Double.parseDouble(lector.readLine());
+                operacion = lector.readLine().charAt(0);
+                operando2 = Double.parseDouble(lector.readLine());
+                switch (operacion) {
 
-            while (socket.isConnected()) {
+                    case '+':
+                        resultado = sumar(operando1, operando2);
+                        break;
+                    case '-':
+                        resultado = resta(operando1, operando2);
+                        break;
+                    case '*':
+                        resultado = multiplicacion(operando1, operando2);
+                        break;
+                    case '/':
+                        resultado = division(operando1, operando2);
+                        break;
 
-                try {
-                    System.out.println("El operando 1 es: " + operando1);
+                    default:
+                        resultado = 0;
 
 
-
-                } catch (Exception e) {
-                    System.err.println("ERROR");
+                        escritor.println(String.valueOf(resultado));
                 }
 
+
             }
-            //se cierr el servidor
-            servidor.close();
+
 
         } catch (Exception e) {
-            System.err.println("EL MENSAJE ES: " + e.getMessage());
+            System.err.println("ERROR DEL SERVIDOR " + e.getMessage());
         }
 
 
     }
 
 
+    public static void main(String[] args) {
+
+
+        calculadora();
+
+
+    }
 }
