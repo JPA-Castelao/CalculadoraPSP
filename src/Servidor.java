@@ -16,9 +16,10 @@ public class Servidor {
         serverSocket.bind(dir);
         System.out.println("SERVIDOR ESPERANDO CLIENTES");
         while (true) {
+
+
             Socket cliente = serverSocket.accept();
             System.out.println("CONEXION EXITOSA");
-
             GestorClientes hilo = new GestorClientes(cliente);
             hilo.start();
 

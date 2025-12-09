@@ -16,14 +16,18 @@ public class GestorClientes extends Thread {
 
     public static void operaciones(PrintWriter escritor, BufferedReader lector) {
         double operando1;
+        String stringOperacion;
         char operacion;
         double operando2;
         double resultado = 0;
         try {
             while (true) {
+
                 operacion = lector.readLine().charAt(0);
                 operando1 = Double.parseDouble(lector.readLine());
                 operando2 = Double.parseDouble(lector.readLine());
+
+
                 switch (operacion) {
 
                     case '+':
@@ -38,6 +42,8 @@ public class GestorClientes extends Thread {
                     case '/':
                         resultado = operando1 / operando2;
                         break;
+                    case 's':
+                        break;
 
                     default:
                         resultado = 0;
@@ -49,7 +55,12 @@ public class GestorClientes extends Thread {
 
             }
         } catch (Exception e) {
-            System.err.println("ERROR DE LECTURA " + e.getMessage());
+            if (e instanceof NullPointerException) {
+            } else {
+                System.err.println("ERROR DE LECTURA " + e.getMessage());
+
+            }
+
         }
 
 

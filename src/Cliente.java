@@ -38,6 +38,7 @@ public class Cliente {
         while (validar == false || operacion != 's') {
 
             String input;
+            System.out.println();
             System.out.println("+ Suma");
             System.out.println("- Resta");
             System.out.println("* Multiplicacion");
@@ -69,6 +70,7 @@ public class Cliente {
                     validar = true;
                     break;
                 case 's':
+                    operacion = 's';
                     break;
                 default:
                     System.out.println("SOLO (+,-,*,/,s)");
@@ -107,25 +109,31 @@ public class Cliente {
 
                 operacion = validacionOperacion();
                 if (operacion == 's') {
+                    escritor.println(operacion);
+                    escritor.println(String.valueOf(0));
+                    escritor.println(String.valueOf(0));
                     break;
+                } else {
+
+
+                    //bloque de validación del primer dato
+                    System.out.println("Introduce el  primer operando");
+                    operando1 = validacionOperador();
+
+                    //bloque de validación del segundo dato
+                    System.out.println("Introduce el  segundo operando");
+                    operando2 = validacionOperador();
+
+
+                    escritor.println(operacion);
+                    escritor.println(String.valueOf(operando1));
+                    escritor.println(String.valueOf(operando2));
+
+                    sc.nextLine();
+                    resultado = Double.parseDouble(lector.readLine());
+                    System.out.println();
+                    System.out.printf("\n EL RESULTADO ES: %.2f ", resultado);
                 }
-                //bloque de validación del primer dato
-                System.out.println("Introduce el  primer operando");
-                operando1 = validacionOperador();
-
-                //bloque de validación del segundo dato
-                System.out.println("Introduce el  segundo operando");
-                operando2 = validacionOperador();
-
-
-                escritor.println(operacion);
-                escritor.println(String.valueOf(operando1));
-                escritor.println(String.valueOf(operando2));
-
-                sc.nextLine();
-                resultado = Double.parseDouble(lector.readLine());
-                System.out.println("EL RESULTADO ES: " + resultado);
-
 
             }
             socketCliente.close();
