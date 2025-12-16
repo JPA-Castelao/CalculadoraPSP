@@ -9,7 +9,7 @@ import java.text.ParseException;
 
 public class Servidor {
 
-
+//TODO pasar socket al gestor
     public static void main(String[] args) throws IOException {
         InetSocketAddress dir = new InetSocketAddress("localhost", 6789);
         ServerSocket serverSocket = new ServerSocket();
@@ -17,6 +17,7 @@ public class Servidor {
         System.out.println("SERVIDOR ESPERANDO CLIENTES");
         while (true) {
 
+//TODO añadir comprobaciones de conexion
 
             Socket cliente = serverSocket.accept();
             System.out.println("CONEXION EXITOSA");

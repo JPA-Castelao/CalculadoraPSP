@@ -7,6 +7,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
+//TODO aviso servidor no iniciado
+
 public class Cliente {
     //Instancia del Scanner
     static Scanner sc = new Scanner(System.in);

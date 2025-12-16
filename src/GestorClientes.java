@@ -63,7 +63,6 @@ public class GestorClientes extends Thread {
 
         }
 
-
     }
 
 
